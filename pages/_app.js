@@ -13,11 +13,6 @@ Router.events.on('routeChangeError', () => NProgress.done())
 function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
-    fetch('/api/language')
-    .catch((err) => console.log("erro ao pegar a linguage"))
-  })
-
-  useEffect(() => {
     fetch('/api/country')
     .catch((err) => console.log("erro ao pegar o país"))
   })
