@@ -1,13 +1,11 @@
 import useScript from "./useScript.js";
-import { useRouter } from 'next/router'
 export default function Player(config) {
-    const router = useRouter()
-    const language = router.locale
+
   if (config.id && config.file) {
     if(typeof window !== 'undefined') {
         if (!window.Playerjs) {
             window.pjsconfig = config;
-            useScript("/playerjs-" + language + ".js");
+            useScript("/playerjs-" + 'pt' + ".js");
           } else {
             CreatePlayer(config);
           }
