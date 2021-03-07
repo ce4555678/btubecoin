@@ -13,7 +13,7 @@ export default function Layout ({children, title}) {
         <title>{title}</title>
         </Head>
         <Navbar/>
-        <Container style={{marginTop: '11vh'}}>
+        <Container style={{marginTop: '11vh'}} fluid>
             {children}
         </Container>
         </>

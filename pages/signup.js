@@ -1,12 +1,13 @@
 import Layout from '../components/Layout'
 import { memo, useState } from 'react'
 import instance from '../utils/BaseUrl'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Container } from 'react-bootstrap'
 import Link from 'next/link'
 function Login() {
     return (
         <Layout title="Sign Up">
-            <h1 className="text-center text-white">Sign Up</h1>
+           <Container sm>
+           <h1 className="text-center text-white">Sign Up</h1>
                     <Form>
                     <Form.Group controlId="formBasicTitle">
                     <Form.Label className="text-white">Title</Form.Label>
@@ -37,6 +38,7 @@ function Login() {
             Submit
         </Button>
         </Form>
+           </Container>
         </Layout>
     )
 }
