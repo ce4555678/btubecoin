@@ -1,7 +1,7 @@
 import Layout from '../components/Layout'
 import { memo, useState } from 'react'
 import instance from '../utils/BaseUrl'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import Link from 'next/link'
 import firebase from '../utils/firebase'
 import 'firebase/auth'
@@ -12,27 +12,30 @@ function Login() {
     const router = useRouter()
     const [Email, setEmail] = useState('')
     const [Password, setPaasword] = useState('')
+    const [Okmessage, setOkmessage ] = useState({ok: true, message: ''})
+
+    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
     function handleSubmit(event) {
         event.preventDefault()
         console.log({Email, Password})
         firebase.auth().signInWithEmailAndPassword(Email, Password)
-        .then((user) => {
-            user.user.getIdToken()
-            .then((idToken) => {
-                instance.post('/session', {token: idToken})
-                .then(() => router.push('/'))
-                .catch((err) => console.log("erro ao pegar token"))
-            })
+        .then(() => {
+            router.push('/')
         })
         .catch((error) => {
-
+            setOkmessage({ok: false, message: error.message})
         })
       }
     return (
         <Layout title="Login">
-          <Container sm>
+          <Container sm="true">
           <h1 className="text-center text-white">Login</h1>
+          {Okmessage.ok ? null : 
+          <Alert variant="danger">
+              {Okmessage.message}
+              </Alert>}
+
                     <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
             <Form.Label className="text-white">Email address</Form.Label>
