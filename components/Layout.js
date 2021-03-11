@@ -1,16 +1,9 @@
 import Navbar from './Navbar'
 import Head from 'next/head'
 import { Container} from 'react-bootstrap'
-import { useEffect, useState } from 'react'
 
 export default function Layout ({children, title}) {
-    const [IsWindow, setIsWindow] = useState(false)
 
-    // useEffect(() => {
-    //     if(typeof window !== 'undefined') {
-    //         setIsWindow(true)
-    //     }
-    // })
     return (
         <>
          <Head>

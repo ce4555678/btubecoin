@@ -6,6 +6,8 @@ import {useEffect, useState} from 'react'
 import firebase from '../utils/firebase'
 import 'firebase/auth'
 import 'firebase/database'
+import UserContext from '../contexts/UserContext' 
+
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start()
@@ -46,6 +48,7 @@ function MyApp({ Component, pageProps }) {
     });
   }, []);
 
+  let user
   if(authState.status == "in") {
     if(!acessToken) {
       acessToken = authState.token
@@ -53,11 +56,16 @@ function MyApp({ Component, pageProps }) {
     if(acessToken !== authState.token) {
       acessToken = authState.token
       }
+      user = authState.user ? authState.user : ""
   }
 
-  console.log(acessToken ? acessToken : 'nada')
+  let auth = authState.status == "in" ? true : false
 
-  return <Component {...pageProps} />
+  return (
+     <UserContext.Provider value={{auth, user}}>
+        <Component {...pageProps} />
+      </UserContext.Provider>
+  )
 }
 
 export default MyApp
