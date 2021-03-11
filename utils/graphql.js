@@ -4,7 +4,6 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { useEffect, useState } from 'react'
 
 function Client(authState) {
-    console.log(authState)
     const [ IsWindow, setIsWindow ] = useState(false)
 
     useEffect(() => {
