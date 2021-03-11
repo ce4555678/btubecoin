@@ -7,6 +7,8 @@ import firebase from '../utils/firebase'
 import 'firebase/auth'
 import 'firebase/database'
 import UserContext from '../contexts/UserContext' 
+import { ApolloProvider } from '@apollo/client'
+import Client from '../utils/graphql'
 
 
 Router.events.on('routeChangeStart', () => {
@@ -60,10 +62,13 @@ function MyApp({ Component, pageProps }) {
   }
 
   let auth = authState.status == "in" ? true : false
+  const client = Client(authState)
 
   return (
      <UserContext.Provider value={{auth, user}}>
+       <ApolloProvider client={client}>
         <Component {...pageProps} />
+       </ApolloProvider>
       </UserContext.Provider>
   )
 }

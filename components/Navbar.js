@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { memo, useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {useRouter} from 'next/router'
-import { faFire, faHome, faVideo, faClock, faSearch, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faFire, faHome, faVideo, faClock, faSearch, faSignOutAlt, faSignInAlt, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import UserContext from '../contexts/UserContext'
 
 function NavBar() {
@@ -34,14 +34,16 @@ function NavBar() {
             <Nav.Link className="active" href="/watch-later"><FontAwesomeIcon icon={faClock} size={'1x'}/> Watch Later</Nav.Link> :
             <Nav.Link href="/watch-later"><FontAwesomeIcon icon={faClock} size={'1x'}/> Watch Later</Nav.Link>}
         </Link>
-
+        
         <Link href="/send-video">
             {router.pathname == "/send-video" ? 
             <Nav.Link className="active" href="/send-video"><FontAwesomeIcon icon={faVideo} size={'1x'}/> Send Video</Nav.Link> :
             <Nav.Link href="/send-video"><FontAwesomeIcon icon={faVideo} size={'1x'}/> Send Video</Nav.Link>}
         </Link>
-        { auth ?  <Nav.Link href="/logout"><FontAwesomeIcon icon={faSignOutAlt} size={'1x'}/> Logout</Nav.Link> : null }
-        { auth == false ?  <Nav.Link href="/login"><FontAwesomeIcon icon={faSignInAlt} size={'1x'}/> Login</Nav.Link> : null }
+
+        { auth ?  <Link href="/account"><Nav.Link className={router.pathname == "/account" ? "active" : null} href="/account" ><FontAwesomeIcon icon={faUserCircle} size={'1x'}/> Your Account</Nav.Link></Link> : null }
+        { auth ?  <Link href="/logout"><Nav.Link className={router.pathname == "/logout" ? "active" : null} href="/logout" ><FontAwesomeIcon icon={faSignOutAlt} size={'1x'}/> Logout</Nav.Link></Link> : null }
+        { auth == false ?  <Link href="/login"><Nav.Link className={router.pathname == "/login" ? "active" : null} href="/login" ><FontAwesomeIcon icon={faSignInAlt} size={'1x'}/> Login</Nav.Link></Link> : null }
         {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

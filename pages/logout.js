@@ -14,7 +14,7 @@ export default function Logout() {
     })
     return (
         <Layout title="Logout">
-            <h1 className="text-white text-center">Logout</h1>
+            <h1 className="text-white text-center">Redirect</h1>
         </Layout>
     )
 }
