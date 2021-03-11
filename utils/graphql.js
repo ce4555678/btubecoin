@@ -2,6 +2,7 @@ import { split, HttpLink, ApolloClient, InMemoryCache } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { useEffect, useState } from 'react'
+import { setContext } from '@apollo/client/link/context';
 
 function Client(authState) {
     const [ IsWindow, setIsWindow ] = useState(false)
@@ -18,18 +19,17 @@ function Client(authState) {
            token = authState.token
         }
     }
-    const headers = token ? { authorization: `Bearer ${token}`} : {}
-    const connectionParams = token ? { authorization: `Bearer ${token}`} : {}
+
+
     const httpLink = new HttpLink({
         uri:  process.env.NEXT_PUBLIC_URL_GRAPHQL,
-        headers
       });
       
       const wsLink = IsWindow ? new WebSocketLink({
         uri: process.env.NEXT_PUBLIC_WSS_GRAPHQL,
+
         options: {
           reconnect: true,
-          connectionParams
         }
       }) : null
       
@@ -50,9 +50,29 @@ function Client(authState) {
         httpLink,
       ) : httpLink
 
+
+      const authLink = setContext((_, { headers }) => {
+        if(token) {
+          return {
+            headers: {
+              ...headers,
+              authorization: `Bearer ${token}`
+            }
+          }
+        } else {
+          return {
+            headers: {
+              ...headers
+            }
+          } 
+        }
+        
+      });
+
       const client = new ApolloClient({
-          ssrMode: true,
-          link,
+          // ssrMode: true,
+          link: authLink.concat(link),
+          // headers,
           cache: new InMemoryCache({})
       })
 

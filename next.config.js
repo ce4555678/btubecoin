@@ -1,6 +1,6 @@
 module.exports = {
     images: {
-      domains: ['cdn.btubecoin.com', 'videodelivery.net'],
+      domains: ['cdn.btubecoin.com', 'videodelivery.net', 'i.ytimg.com'],
     },
     i18n: {
       locales: ['pt', 'es', 'en'],
